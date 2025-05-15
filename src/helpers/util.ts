@@ -18,6 +18,7 @@ export namespace util {
     obj === null || typeof obj !== 'object'
       ? obj
       : Array.isArray(obj)
+        // @ts-ignore
       ? obj.map(sortObj)
       : Object.assign(
           {},
