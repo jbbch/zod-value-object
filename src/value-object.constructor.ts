@@ -1,4 +1,5 @@
 import { ZodBranded, ZodFirstPartySchemaTypes, ZodTypeAny } from 'zod';
+import  deepEqual from 'fast-deep-equal';
 
 import { typeUtil, util } from './helpers/util';
 import { InvalidValueError } from './invalid-value.error';
@@ -49,7 +50,7 @@ export class ValueObject<
   equals(other: TInput): boolean {
     const Ctor = this.constructor as typeof ValueObject;
     return (
-      util.flyweight.run(Ctor, this.type, Ctor.toPlainValue(other)) === this
+      deepEqual(util.flyweight.run(Ctor, this.type, Ctor.toPlainValue(other)), this)
     );
   }
 
