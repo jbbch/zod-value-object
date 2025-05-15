@@ -108,22 +108,6 @@ export class ValueObject<
     Schema extends ZodFirstPartySchemaTypes,
     T extends typeUtil.Input<Schema> = typeUtil.Input<Schema>
   >(value: T): typeUtil.TPlain<Schema> {
-    if (util.isValueObject(value)) return value.toPlainValue();
-
-    if (Array.isArray(value)) {
-      return value.map((item: typeUtil.Input<any>) =>
-        ValueObject.toPlainValue(item)
-      ) as typeUtil.TPlain<Schema>;
-    }
-    if (typeof value === 'object' && value !== null) {
-      return Object.entries(value).reduce(
-        (acc, [key, value]) => ({
-          ...acc,
-          [key]: ValueObject.toPlainValue(value as typeUtil.Input<any>),
-        }),
-        {} as typeUtil.TPlain<Schema>
-      );
-    }
     return value as typeUtil.TPlain<Schema>;
   }
 
